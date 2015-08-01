@@ -8,46 +8,61 @@ var React = require('react-native');
 var {
   AppRegistry,
   StyleSheet,
+  Image,
   Text,
   View,
 } = React;
 
-var movie = React.createClass({
+var MOCKED_MOVIES_DATA = [{
+  title: 'Title',
+  year: '2015',
+  posters: {thumbnail: 'http://i.imgur.com/UePbdph.jpg'}
+}];
+
+var styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F5FCFF',
+  },
+  thumbnail: {
+    width: 53,
+    height: 81,
+  },
+  rightContainer: {
+    flex: 1
+  },
+  title: {
+    fontSize: 20,
+    marginBottom: 8,
+    textAlign: 'center',
+  },
+  year: {
+    textAlign: 'center',
+  },
+});
+
+var MovieApp = React.createClass({
   render: function() {
+    var movie = MOCKED_MOVIES_DATA[0];
+
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.ios.js
-        </Text>
-        <Text style={styles.instructions}>
-          Press Cmd+R to reload,{'\n'}
-          Cmd+D or shake for dev menu
-        </Text>
+        <Image
+          style={styles.thumbnail}
+          source={{uri: movie.posters.thumbnail}}
+        />
+        <View style={styles.rightContainer}>
+          <Text style={styles.title}>{movie.title}</Text>
+          <Text style={styles.year}>{movie.year}</Text>
+        </View>
       </View>
     );
   }
 });
 
-var styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
+AppRegistry.registerComponent('movie', () => MovieApp);
 
-AppRegistry.registerComponent('movie', () => movie);
+module.exports = MovieApp;
